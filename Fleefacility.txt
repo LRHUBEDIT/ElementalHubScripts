@@ -1,0 +1,539 @@
+pcall(function()
+    if getgenv().Loaded then
+        print("Main script has been executed")
+    else
+        print("Main script has not been executed")
+        game.Players.LocalPlayer:Kick("Unautorized UI access !")
+        
+        while true do end
+    end
+end)
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+local Notify = loadstring(game:HttpGet("https://raw.githubusercontent.com/anisnouacer/Subscribe_To_Hydraa_RBX/main/Notification%20Library"))()
+
+local window = DrRayLibrary:Load("Sponsploits", "Default")
+
+local tab = DrRayLibrary.newTab("Misc", "ImageIdHere")
+local tab1 = DrRayLibrary.newTab("Visuals", "ImageIdHere")
+local tab2 = DrRayLibrary.newTab("Beast", "ImageIdHere")
+local tab3 = DrRayLibrary.newTab("Survivor", "ImageIdHere")
+local tab4 = DrRayLibrary.newTab("Trade", "ImageIdHere")
+----- Player tab -----
+tab.newButton("Fix cam", "Fix the camera problems", function()
+local player = game.Players.LocalPlayer
+
+	workspace.CurrentCamera.CameraSubject = player.Character:FindFirstChildWhichIsA('Humanoid')
+	workspace.CurrentCamera.CameraType = "Custom"
+	player.CameraMinZoomDistance = 0.5
+	player.CameraMaxZoomDistance = math.huge
+	player.CameraMode = "Classic"
+	player.Character.Head.Anchored = false
+end)
+
+
+
+tab.newSlider("Walkspeed", "Sets your walkspeed", 100, false, function(num)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = num
+end)
+
+tab.newSlider("Jumpower", "Sets your jumpower", 100, false, function(num)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = num
+end)
+
+tab.newToggle("Hitbox", "Enable hitbox ( lower die chances )", false, function(state)
+    if state == true then
+for i,v in pairs(game.Players:GetChildren()) do
+if v:IsA("Player") and v.Name ~= game.Players.LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(6.5,6.5,6.5)
+v.Character.HumanoidRootPart.Transparency = 0.8
+end)
+end
+end
+else
+for i,v in pairs(game.Players:GetChildren()) do
+if v:IsA("Player") and v.Name ~= game.Players.LocalPlayer.Name then
+pcall(function()
+v.Character.HumanoidRootPart.Size = Vector3.new(2,2,1)
+v.Character.HumanoidRootPart.Transparency = 1
+end)
+end
+end
+end
+end)
+---- End of local player l tab -------
+----- Visual tab ----
+tab1.newToggle("Player esp", "ESP to players", false, function(state)
+    if state == true then
+	for i,v in pairs(game.Players:GetChildren()) do
+		if v:IsA("Player") and v.Name ~= game.Players.LocalPlayer.Name then
+			pcall(function()
+				local transparency = 0.5
+				local Folder = Instance.new("Folder",v.Character)
+				Folder.Name = v.Name .. "'s ESP"
+				--Head
+				local Head = Instance.new("BoxHandleAdornment",Folder)
+				Head.AlwaysOnTop = true
+				Head.Adornee = v.Character.Head
+				Head.ZIndex = 1
+				Head.Name = "Head"
+				Head.Transparency = transparency
+				Head.Size = v.Character.Head.Size
+				--Torso
+				local Torso = Instance.new("BoxHandleAdornment",Folder)
+				Torso.AlwaysOnTop = true
+				Torso.Adornee = v.Character.Torso
+				Torso.ZIndex = 1
+				Torso.Name = "Torso"
+				Torso.Transparency = transparency
+				Torso.Size = v.Character.Torso.Size
+				--Left Arm
+				local LeftArm = Instance.new("BoxHandleAdornment",Folder)
+				LeftArm.AlwaysOnTop = true
+				LeftArm.Adornee = v.Character["Left Arm"]
+				LeftArm.ZIndex = 1
+				LeftArm.Name = "LeftArm"
+				LeftArm.Transparency = transparency
+				LeftArm.Size = v.Character["Left Arm"].Size
+				--Right Arm
+				local RightArm = Instance.new("BoxHandleAdornment",Folder)
+				RightArm.AlwaysOnTop = true
+				RightArm.Adornee = v.Character["Right Arm"]
+				RightArm.ZIndex = 1
+				RightArm.Name = "RightArm"
+				RightArm.Transparency = transparency
+				RightArm.Size = v.Character["Right Arm"].Size
+				--Right Leg
+				local RightLeg = Instance.new("BoxHandleAdornment",Folder)
+				RightLeg.AlwaysOnTop = true
+				RightLeg.Adornee = v.Character["Right Leg"]
+				RightLeg.ZIndex = 1
+				RightLeg.Name = "RightLeg"
+				RightLeg.Transparency = transparency
+				RightLeg.Size = v.Character["Right Leg"].Size
+				--Left Leg
+				local LeftLeg = Instance.new("BoxHandleAdornment",Folder)
+				LeftLeg.AlwaysOnTop = true
+				LeftLeg.Name = "LeftLeg"
+				LeftLeg.Adornee = v.Character["Left Leg"]
+				LeftLeg.ZIndex = 1
+				LeftLeg.Transparency = transparency
+				LeftLeg.Size = v.Character["Left Leg"].Size
+				--Colors if beast or not
+				getgenv().LoopBeastColor = game.RunService.Stepped:Connect(function()
+				if v.TempPlayerStatsModule.IsBeast.Value == true then
+					Head.Color3 = Color3.fromRGB(205, 98, 152)
+					Torso.Color3 = Color3.fromRGB(205, 98, 152)
+					LeftArm.Color3 = Color3.fromRGB(205, 98, 152)
+					RightArm.Color3 = Color3.fromRGB(205, 98, 152)
+					RightLeg.Color3 = Color3.fromRGB(205, 98, 152)
+					LeftLeg.Color3 = Color3.fromRGB(205, 98, 152)
+				elseif v.TempPlayerStatsModule.IsBeast.Value == false then
+					Head.Color3 = Color3.new(225,1,1)
+					Torso.Color3 = Color3.new(1,1,1)
+					LeftArm.Color3 = Color3.new(1,1,1)
+					RightArm.Color3 = Color3.new(1,1,1)
+					RightLeg.Color3 = Color3.new(1,1,1)
+					LeftLeg.Color3 = Color3.new(1,1,1)
+				end
+				end)
+        --[[
+        --BillboardGui
+        local BillboardGui = Instance.new("BillboardGui",Folder)
+        BillboardGui.AlwaysOnTop = true
+        BillboardGui.Enabled = true
+        BillboardGui.Adornee = v.Character.Head
+        BillboardGui.Size = UDim2.new(0,100,0,100)
+        --NameTag
+        local NameTag = Instance.new("TextLabel",BillboardGui)
+        NameTag.BackgroundTransparency = 1
+        NameTag.Size = UDim2.new(0,100,0,10)
+        if v.TempPlayerStatsModule.IsBeast.Value == true then
+        NameTag.TextColor3 = Color3.new(1,0,0)
+        elseif v.TempPlayerStatsModule.IsBeast.Value == false then
+        NameTag.TextColor3 = Color3.new(1,1,1)
+        end
+        NameTag.ZIndex = 10
+        NameTag.Visible = true
+        NameTag.TextSize = 20
+        NameTag.Text = "Name: " .. v.Name
+        ]]
+			end)
+		end
+	end
+else
+getgenv().LoopBeastColor:Disconnect()
+for i,v in pairs(game.Players:GetChildren()) do
+    if v:IsA("Player") then
+   for i,e in pairs(v.Character:GetChildren()) do
+   if e:IsA("Folder") then
+       pcall(function()
+       e:Destroy()
+       end)
+end
+end
+end
+end
+
+end
+end)
+tab1.newToggle("Doors ESP", "Add an esp to the doors.", false, function(state)
+if state == true then
+getgenv().DoorESP = false
+	spawn(function()
+		--single doors
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "SingleDoor" then
+				pcall(function()
+					local ESP = Instance.new("Highlight")
+					ESP.Parent = v.Door
+				end)
+
+			end
+		end
+		wait(1)
+
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "SingleDoor" then
+				spawn(function()
+					while true do
+						pcall(function()
+							if v.DoorTrigger.ActionSign.Value == 11 then
+								v.Door.Highlight.FillColor = Color3.new(0,1,0)
+							elseif v.DoorTrigger.ActionSign.Value == 10 then
+								v.Door.Highlight.FillColor = Color3.new(1,0,0)
+							end
+						end)
+						if getgenv().DoorESP == true then
+						    break;
+						end
+						wait(0.1)
+					end
+				end)
+				
+				
+			end
+		end
+		
+	end)
+	--double doors
+	spawn(function()
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "DoubleDoor" then
+				pcall(function()
+					local ESP = Instance.new("Highlight")
+					ESP.Parent = v
+				end)
+
+			end
+		end
+		wait(1)
+
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "DoubleDoor" then
+				spawn(function()
+					while true do
+						pcall(function()
+							if v.DoorTrigger.ActionSign.Value == 11 then
+								v.Highlight.FillColor = Color3.new(0,1,0)
+							elseif v.DoorTrigger.ActionSign.Value == 10 then
+								v.Highlight.FillColor = Color3.new(1,0,0)
+							end
+						end)
+                        if getgenv().DoorESP == true then
+                             print("Stopped itLop!2")
+                             break;
+                        end
+                        wait(0.1)
+					end
+				end)
+			end
+		end
+	end)
+else
+getgenv().DoorESP = true
+	--signle door
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v.Name == "SingleDoor" then
+			pcall(function()
+				v.Door.Highlight:Destroy()
+			end)
+
+		end
+	end
+
+	--double doors
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v.Name == "DoubleDoor" then
+			pcall(function()
+				v.Highlight:Destroy()
+			end)
+
+		end
+	end
+end    
+end)
+
+
+
+tab1.newToggle("Computer ESP", "Add an ESP to the computers.", false, function(state)
+    if state then
+        getgenv().StopComputerESP = false
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == "ComputerTable" then
+                pcall(function()
+                    local ESP = Instance.new("BoxHandleAdornment")
+                    ESP.Adornee = v
+                    ESP.Size = v.Size
+                    ESP.ZIndex = 1
+                    ESP.Color3 = Color3.new(0, 0, 1)
+                    ESP.Transparency = 0.5
+                    ESP.Parent = v
+                end)
+            end
+        end
+
+        spawn(function()
+            while true do
+                for i, v in pairs(workspace:GetDescendants()) do
+                    if v.Name == "ComputerTable" then
+                        if v.Screen.BrickColor == BrickColor.new("Bright blue") then
+                            pcall(function()
+                                v.Highlight.FillColor = Color3.new(0, 0, 1)
+                            end)
+                        elseif v.Screen.BrickColor == BrickColor.new("Dark green") then
+                            pcall(function()
+                                v.Highlight.FillColor = Color3.new(0, 1, 0)
+                            end)
+                        end
+                        if getgenv().StopComputerESP then
+                            print("Stopped Computer ESP")
+                            break
+                        end
+                    end
+                end
+                wait(1)
+            end
+        end)
+    else
+        getgenv().StopComputerESP = true
+        for i, v in pairs(workspace:GetDescendants()) do
+            if v.Name == "ComputerTable" then
+                pcall(function()
+                    local ESP = v:FindFirstChild("BoxHandleAdornment")
+                    if ESP then
+                        ESP:Destroy()
+                    end
+                end)
+            end
+        end
+    end
+end)
+
+tab1.newToggle("Pods ESP", "Add an esp to the freeze pods.", false, function(state)
+if state == true then
+for i,v in pairs(workspace:GetDescendants()) do 
+    if v.Name == "FreezePod" then
+        pcall(function()
+        local ESP = Instance.new("Highlight",v)
+        end)
+    end
+end
+else
+for i,v in pairs(workspace:GetDescendants()) do 
+    if v.Name == "FreezePod" then
+        pcall(function()
+        v.Highlight:Destroy()
+        end)
+    end
+end
+end    
+end)
+------ End of visual tab -----
+
+
+---- Beast tab ------
+
+
+
+tab2.newButton("Infinite stamina", "Gets an inf stamina", function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+game.UserInputService.InputBegan:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 30
+end
+end)
+
+game.UserInputService.InputEnded:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+end
+end)
+
+pcall(function()
+game.Players.LocalPlayer.Character.PowersLocalScript:Destroy()    
+end)
+else
+
+
+Lib:New({Boss = "hydraa_rbx",Title = "Error",Text = "Your not the beast !",Timer = 5})
+end
+end)
+
+tab2.newButton("Disable slow", "Never be slow", function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+pcall(function()
+game.Players.LocalPlayer.Character.PowersLocalScript:Destroy()
+end)
+else
+Lib:New({Boss = "hydraa_rbx",Title = "Error",Text = "Your not the beast !",Timer = 5})
+end
+end)
+
+tab2.newButton("Crawl as beast", "Lets you crawl as beast", function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+game:GetService("Players").LocalPlayer.TempPlayerStatsModule.DisableCrawl.Value = false
+else
+Lib:New({Boss = "hydraa_rbx",Title = "Error",Text = "Your not the beast !",Timer = 5})
+end
+end)
+tab2.newButton("Removes sound", "Removes sound and glow", function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+for i,v in pairs(game.Players.LocalPlayer.Character.Hammer.Handle:GetChildren()) do
+    if v:IsA("Sound") then
+        pcall(function()
+        v:Destroy()
+        end)
+    end
+end
+
+pcall(function()
+game.Players.LocalPlayer.Character.Gemstone.Handle.PointLight:Destroy()
+end)
+else
+Lib:New({Boss = "hydraa_rbx",Title = "Error",Text = "Your not the beast !",Timer = 5})
+end
+
+end)
+
+tab2.newButton("Bug the game", "Crash the game forever", function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+game.Players.LocalPlayer.Character:Destroy()
+else
+Lib:New({Boss = "hydraa_rbx",Title = "Error",Text = "Your not the beast !",Timer = 5})
+end
+end)
+
+tab2.newToggle("Auto tie", "Tie automatically", false, function(state)
+if state == true then
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+getgenv().StopTheShit = false
+while wait() do
+if game:GetService("Players").LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+local function GetClosestPlayer()
+   local target = nil
+   local distance = math.huge
+ 
+   for i,v in next, Players:GetPlayers() do
+       if v and v ~= lp and v.Character and v.Character:FindFirstChildOfClass('Humanoid') and v.Character:FindFirstChildOfClass('Humanoid').RootPart then
+           local plrdist = lp:DistanceFromCharacter(v.Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame.p)
+           if plrdist < distance then
+               target = v
+               distance = plrdist
+           end
+       end
+   end
+ 
+   return target
+end
+
+print(GetClosestPlayer().Name)
+local args = {
+    [1] = "HammerTieUp",
+    [2] = GetClosestPlayer().Character.Torso,
+    [3] = GetClosestPlayer().Character.HumanoidRootPart.Position
+}
+
+game:GetService("Players").LocalPlayer.Character.Hammer.HammerEvent:FireServer(unpack(args))
+end
+if getgenv().StopTheShit == true then
+    break;
+end
+end
+else
+Lib:New({Boss = "hydraa_rbx",Title = "Error",Text = "Your not the beast !",Timer = 5})
+end
+else
+getgenv().StopTheShit = true
+end
+end)
+----- END OF BEAST TAB ----
+
+------ START OF PLR TAB -----
+
+tab3.newToggle("Infinite sprint", "Press q to sprint forever", false, function(state)
+game.UserInputService.InputBegan:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 30
+end
+end)
+
+game.UserInputService.InputEnded:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+end
+end)
+
+pcall(function()
+game.Players.LocalPlayer.Character.PowersLocalScript:Destroy()    
+end)
+end)
+
+tab3.newButton("No hack error", "You become anonymous dude", function()
+spawn(function()
+while wait() do
+game.ReplicatedStorage.RemoteEvent:FireServer("SetPlayerMinigameResult",true)
+end
+end)
+end)
+
+---- End of survivor tab -----
+tab4.newButton("Close trade gui", "Close the gui", function()
+if game.PlaceId == 1738581510 then
+	    game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = false
+
+print("Visual scam wont work if u close gui while doing it")
+else
+print("Join trade first")
+end
+end)
+tab4.newButton("Visual scam", "Scam da dudes", function()
+if game.PlaceId == 1738581510 then
+firesignal(game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.TopBar.CloseButton.MouseButton1Click)
+wait(3)
+game:GetService("Players").LocalPlayer.PlayerGui.MenusScreenGui.TradingMenuWindow.Visible = true
+else
+print("Join server first")
+end
+end)
+
+tab4.newInput("user", "Send trade to user", function(text)
+local args = {
+    [1] = "SendTradeRequest",
+    [2] = game.Players[text].UserId
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))    
+end)
+
+tab4.newButton("INF credits", "Only work on bundle", function()
+print("This only works on bundles")
+while wait() do
+game:GetService("Players").LocalPlayer.SavedPlayerStatsModule.Credits.Value = 10000000000
+end
+end)
+
+
